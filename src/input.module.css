@@ -1,0 +1,19 @@
+.textcols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    text-align: center;
+    transform: translate(0, 100%)
+
+}
+.text {
+
+}
+.input {
+    width: 80%;
+}
+.error {
+    width: 80%;
+    border: 2px solid red;
+    background-color: lightcoral;
+}
