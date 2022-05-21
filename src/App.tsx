@@ -1,17 +1,12 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Scoreboard} from './Scoreboard';
 import {Settings} from "./Settings";
 
-export type AppPropsType = {
-    // startValue: number
-    // maxValue: number
-}
-
-const App: React.FC<AppPropsType> = (props:AppPropsType) => {
+const App = () => {
 
     const [maxValue, setMaxValue] = useState<number>(0)
     const [startValue, setStartValue] = useState<number>(0)
-    let [count, setCount] = useState<number>(startValue)
+    const [count, setCount] = useState<number>(startValue)
     const [isActive, setIsActive] = useState(true)
     const Inc = () => {
         if (count < maxValue) {
@@ -23,28 +18,59 @@ const App: React.FC<AppPropsType> = (props:AppPropsType) => {
         setCount(startValue)
     }
     const changeActiveStatus = () => {
+        debugger
         setIsActive(!isActive)
+        setCount(startValue)
     }
-    const onChangeMax = () => {
-        setMaxValue(maxValue)
+    const onChangeMax = (value: number) => {
+        debugger
+        setMaxValue(value)
     }
-    const onChangeStart = () => {
-        setStartValue(startValue)
+    const onChangeStart = (value: number) => {
+        debugger
+        setStartValue(value)
     }
+    useEffect(() => {
+        let maxValueAsString = localStorage.getItem('counterMaxValue')
+        if (maxValueAsString) {
+            let newMaxValue = JSON.parse(maxValueAsString)
+            setMaxValue(newMaxValue)
+        }
+    }, [])
+
+    useEffect(() => {
+        localStorage.setItem('counterMaxValue', JSON.stringify(maxValue))
+    }, [maxValue])
+
+    useEffect(() => {
+        let startValueAsString = localStorage.getItem('counterMaxValue')
+        if (startValueAsString) {
+            let newStartValue = JSON.parse(startValueAsString)
+            setMaxValue(newStartValue)
+        }
+    }, [])
+
+    useEffect(() => {
+        localStorage.setItem('counterMaxValue', JSON.stringify(startValue))
+    }, [startValue])
 
     return (
         (isActive) ?
-            <>
-                <Scoreboard value={count}
+            <Settings changeActiveStatus={changeActiveStatus}
+                      onChangeMax={onChangeMax}
+                      onChangeStart={onChangeStart}
+                      maxValue={maxValue}
+                      startValue={startValue}
+            />
+            : <>
+                <Scoreboard startValue={startValue}
+                            maxValue={maxValue}
+                            value={count}
                             Inc={Inc}
                             Reset={Reset}
-                            startValue={startValue}
-                            maxValue={maxValue}
                             changeActiveStatus={changeActiveStatus}
                 />
-            </> :
-            <Settings changeActiveStatus={changeActiveStatus} maxValue={maxValue} onChangeMax={onChangeMax}
-            onChangeStart={onChangeStart} startValue={startValue}/>
+            </>
     );
 }
 

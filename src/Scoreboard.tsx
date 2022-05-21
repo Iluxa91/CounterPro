@@ -2,9 +2,8 @@ import React from 'react';
 import {Button} from './Button';
 import {Counter} from './Counter';
 import style from './Scoreboard.module.css'
-import {AppPropsType} from './App';
 
-export type ScoreboardPropsType = AppPropsType & {
+export type ScoreboardPropsType =  {
     value: number
     Inc: () => void
     Reset: () => void
