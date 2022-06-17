@@ -14,10 +14,12 @@ export const Input = (props: PropsType) => {
         props.onChange(+e.currentTarget.value)
     }
 
+    const className = props.isDisable ? s.error : s.input
+
     return (
         <div className={s.textcols}>
             <div className={s.text}>{props.name}</div>
-            <input className={props.isDisable ? s.error : s.input}
+            <input className={className}
                    type="number" step="1"
                    onChange={onChangeHandler}
                    value={props.value}

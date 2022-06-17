@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import {Button} from "./Button";
+import {Button} from "../button/Button";
 import s from './settings.module.css'
-import {Input} from "./Input";
+import {Input} from "../input/Input";
 
 type PropsType = {
     changeActiveStatus: () => void
@@ -34,7 +34,7 @@ export const Settings = (props: PropsType) => {
             </div>
             <div className={s.buttons}>
                 <Button name='SET'
-                        callBack={props.changeActiveStatus}
+                        onClick={props.changeActiveStatus}
                         disabled={isDisable}
                 />
             </div>

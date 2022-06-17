@@ -7,8 +7,9 @@ type MeaningPropsType = {
 }
 
 export const Counter: React.FC<MeaningPropsType> = ({value, maxValue}) => {
+    let className = value === maxValue ? style.redText : style.classicText
     return (
-        <div className={value === maxValue ? style.redText : style.classicText}>
+        <div className={className}>
             {value}
         </div>
     )
